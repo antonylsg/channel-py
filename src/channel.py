@@ -18,31 +18,34 @@ class Channel:
             return 0
 
         self._wait_time -= step_time
-        return self.release()
+        return self._release()
 
-    def is_empty(self) -> bool:
+    def _is_empty(self) -> bool:
         return self._count == 0
 
-    def is_occupied(self) -> bool:
+    def _is_occupied(self) -> bool:
         return self._count == 1
 
-    def is_blocked(self) -> bool:
+    def _is_blocked(self) -> bool:
         return self._count >= 2
 
     def is_waiting(self) -> bool:
         return self._wait_time is not None
 
-    def enter(self):
-        if self.is_empty():
+    def try_enter(self) -> bool:
+        if self._is_empty():
             self._wait_time =  self._passage_time
-        elif self.is_occupied():
+        elif self._is_occupied():
             self._wait_time += self._block_time
-        else: # self.is_blocked():
-            return
+        elif self._is_blocked():
+            return False
+        else:
+            raise NotImplementedError
 
         self._count += 1
+        return True
 
-    def release(self) -> int:
+    def _release(self) -> int:
         """Free the channel and return the number of released particules"""
 
         if self._wait_time > 0.0:

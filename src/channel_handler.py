@@ -10,7 +10,7 @@ from typing import Iterable
 from channel import Channel
 
 
-def find(predicate: Callable[..., bool], iterable: Iterable) -> Union[None, Any]:
+def find(predicate: Union[None, Callable[..., bool]], iterable: Iterable) -> Union[None, Any]:
     for item in filter(predicate, iterable):
         return item
     return None
@@ -31,10 +31,10 @@ class ChannelHandler:
         if self._time > self._stop_time:
             raise StopIteration
         else:
-            count = self.next_step()
+            count = self._next_step()
             return (self._time, count)
 
-    def next_event(self) -> Event:
+    def _next_event(self) -> Event:
         if self._next_enter_event is None:
             rand = random.random()
             self._next_enter_event = -math.log(rand) * self._inv_intensity
@@ -48,16 +48,16 @@ class ChannelHandler:
 
         return Event(EventKind.RELEASE, min_wait_time)
 
-    def forward(self, step_time: float):
+    def _forward(self, step_time: float):
         self._time += step_time
         self._next_enter_event -= step_time
 
         if self._next_enter_event <= 0.0:
             self._next_enter_event = None
 
-    def next_step(self) -> int:
-        event = self.next_event()
-        self.forward(event.time)
+    def _next_step(self) -> int:
+        event = self._next_event()
+        self._forward(event.time)
 
         # Make the event happen right now!!!
         forward = lambda channel: channel.forward(event.time)
@@ -65,9 +65,6 @@ class ChannelHandler:
 
         if event.kind == EventKind.ENTER:
             random.shuffle(self._channels)
-            is_not_blocked = lambda channel: not channel.is_blocked()
-            channel = find(is_not_blocked, self._channels)
-            if channel is not None:
-                channel.enter()
+            find(None, map(Channel.try_enter, self._channels))
 
         return released
