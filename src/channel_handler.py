@@ -1,15 +1,16 @@
+import math
+import random
 from event import Event
 from event import EventKind
+from typing import Any
 from typing import List
 from typing import Union
 from typing import Callable
 from typing import Iterable
 from channel import Channel
-import math
-import random
 
 
-def find(predicate: Callable[..., bool], iterable: Iterable):
+def find(predicate: Callable[..., bool], iterable: Iterable) -> Union[None, Any]:
     for item in filter(predicate, iterable):
         return item
     return None
@@ -33,7 +34,7 @@ class ChannelHandler:
             count = self.next_step()
             return (self._time, count)
 
-    def next_event(self):
+    def next_event(self) -> Event:
         if self._next_enter_event is None:
             rand = random.random()
             self._next_enter_event = -math.log(rand) * self._inv_intensity
@@ -54,7 +55,7 @@ class ChannelHandler:
         if self._next_enter_event <= 0.0:
             self._next_enter_event = None
 
-    def next_step(self):
+    def next_step(self) -> int:
         event = self.next_event()
         self.forward(event.time)
 
