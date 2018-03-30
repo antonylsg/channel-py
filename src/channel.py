@@ -22,7 +22,9 @@ class Channel:
             return 0
 
         self._wait_time = None
+        return self._release()
 
+    def _release(self) -> int:
         count = self._count
         self._count = 0
         return count
