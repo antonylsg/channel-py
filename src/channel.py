@@ -20,6 +20,18 @@ class Channel:
         self._wait_time -= step_time
         return self._release()
 
+    def _release(self) -> int:
+        """Free the channel and return the number of released particules"""
+
+        if self._wait_time > 0.0:
+            return 0
+        
+        self._wait_time = None
+
+        count = self._count
+        self._count = 0
+        return count
+
     def _is_empty(self) -> bool:
         return self._count == 0
 
@@ -44,15 +56,3 @@ class Channel:
 
         self._count += 1
         return True
-
-    def _release(self) -> int:
-        """Free the channel and return the number of released particules"""
-
-        if self._wait_time > 0.0:
-            return 0
-        
-        self._wait_time = None
-
-        count = self._count
-        self._count = 0
-        return count
