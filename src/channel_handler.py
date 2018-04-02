@@ -22,7 +22,7 @@ class ChannelHandler:
         self._next_enter_event: Union[None, float] = None
         self._inv_intensity = 1.0 / float(intensity)
         self._stop_time = stop_time
-        self._channels = channels.copy()
+        self._channels = channels
 
     def __iter__(self):
         return self
