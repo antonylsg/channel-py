@@ -32,7 +32,7 @@ for _ in range(trials):
         idx = int(time * inv_step)
         histogram[idx] += count
 
-x = np.linspace(0, stop_time, bins)
+x = np.linspace(0.0, stop_time, bins)
 y = np.asarray(histogram) / trials
 plt.plot(x, y, '-r')
 plt.ylabel('<J>')
