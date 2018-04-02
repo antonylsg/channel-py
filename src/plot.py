@@ -7,7 +7,7 @@ from channel_handler import ChannelHandler
 import numpy as np
 import matplotlib 
 matplotlib.use('TkAgg')
-from matplotlib  import pyplot as plt
+from matplotlib import pyplot as plt
 
 
 intensity = 4.0
