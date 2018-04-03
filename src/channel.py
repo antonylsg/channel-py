@@ -55,7 +55,7 @@ class Channel:
         elif self._is_occupied():
             pass
         elif self._would_block():
-            self._wait_time += self._block_time
+            self._wait_time = self._block_time
         elif self._is_blocked():
             return False
         else:
