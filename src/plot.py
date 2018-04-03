@@ -33,8 +33,8 @@ for _ in range(trials):
         histogram[idx] += count
 
 x = np.linspace(0.0, stop_time, bins)
-y = np.asarray(histogram) / trials
-plt.plot(x, y, '-r')
-plt.ylabel('<J>')
-plt.xlabel('t')
+y = np.asarray(histogram) * inv_step / trials
+plt.plot(x, y, 'red')
+plt.xlabel('$t$')
+plt.ylabel(r'$\langle J \rangle$')
 plt.show()
