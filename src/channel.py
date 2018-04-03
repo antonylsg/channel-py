@@ -59,7 +59,7 @@ class Channel:
         elif self._is_blocked():
             return False
         else:
-            raise NotImplementedError
+            return NotImplemented
 
         self._count += 1
         return True
