@@ -18,9 +18,11 @@ def find(predicate: Union[None, Callable[..., bool]], iterable: Iterable) -> Uni
 
 class ChannelHandler:
     def __init__(self, intensity: float, stop_time: float, channels: List[Channel]) -> None:
+        rand = random.random()
+
         self._time = 0.0
-        self._next_enter_event: Union[None, float] = None
         self._inv_intensity = 1.0 / float(intensity)
+        self._next_enter_event = -math.log(rand) * self._inv_intensity
         self._stop_time = stop_time
         self._channels = channels
 
@@ -35,10 +37,6 @@ class ChannelHandler:
             return (self._time, count)
 
     def _next_event(self) -> Event:
-        if self._next_enter_event is None:
-            rand = random.random()
-            self._next_enter_event = -math.log(rand) * self._inv_intensity
-
         waiting_channels = filter(Channel.is_waiting, self._channels)
         wait_times = map(Channel.wait_time, waiting_channels)
         min_wait_time = min(wait_times, default=None)
@@ -53,7 +51,8 @@ class ChannelHandler:
         self._next_enter_event -= step_time
 
         if self._next_enter_event <= 0.0:
-            self._next_enter_event = None
+            rand = random.random()
+            self._next_enter_event = -math.log(rand) * self._inv_intensity
 
     def _next_step(self) -> int:
         event = self._next_event()
