@@ -21,9 +21,10 @@ inv_step = bins / stop_time
 histogram = list(itertools.repeat(0, bins))
 
 for _ in range(trials):
-    channels = list(itertools.repeat(
-        Channel(capacity=2, passage_time=1.0, block_time=4.0), channel_count
-    ))
+    channels = [
+        Channel(capacity=2, passage_time=1.0, block_time=4.0)
+        for _ in range(channel_count)
+    ]
     handler = ChannelHandler(intensity, stop_time, channels)
     history = filter(lambda time_count: time_count[1] is not 0, handler)
     history = filter(lambda time_count: time_count[0] <= stop_time, history)
