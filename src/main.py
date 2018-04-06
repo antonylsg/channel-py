@@ -10,7 +10,7 @@ channel_count = 2
 stop_time = 10.0
 
 channels = [
-    Channel(capacity=2, passage_time=1.0, block_time=4.0)
+    Channel(capacity=2, passage_time=lambda: 1.0, block_time=lambda: 4.0)
     for _ in range(channel_count)
 ]
 handler = ChannelHandler(intensity, stop_time, channels)

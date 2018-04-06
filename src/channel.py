@@ -4,10 +4,8 @@ from typing import Iterable
 
 
 class Channel:
-    def __init__(self, capacity=2, passage_time=1.0, block_time=2.0):
+    def __init__(self, capacity=2, passage_time=lambda: 1.0, block_time=lambda: 2.0):
         assert capacity > 1
-        assert passage_time >= 0.0
-        assert block_time >= 0.0
 
         self._wait_time: Union[None, float] = None
         self._count = 0
@@ -48,11 +46,11 @@ class Channel:
 
     def try_enter(self) -> bool:
         if self._is_empty():
-            self._wait_time = self._passage_time
+            self._wait_time = self._passage_time()
         elif self._is_occupied():
             pass
         elif self._would_block():
-            self._wait_time = self._block_time
+            self._wait_time = self._block_time()
         elif self._is_blocked():
             return False
         else:

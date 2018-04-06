@@ -1,3 +1,5 @@
+import math
+import random
 import itertools
 from event import Event
 from event import EventKind
@@ -8,6 +10,16 @@ import numpy as np
 import matplotlib 
 matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
+
+
+def poisson(intensity: float):
+    inv_intensity = intensity
+
+    def inner():
+        rand = random.random()
+        return -math.log(rand) * inv_intensity
+
+    return inner
 
 
 intensity = 4.0
@@ -22,7 +34,8 @@ histogram = list(itertools.repeat(0, bins))
 
 for _ in range(trials):
     channels = [
-        Channel(capacity=2, passage_time=1.0, block_time=4.0)
+        # Channel(capacity=2, passage_time=lambda: 1.0, block_time=lambda: 4.0)
+        Channel(capacity=2, passage_time=poisson(1.0), block_time=poisson(4.0))
         for _ in range(channel_count)
     ]
     handler = ChannelHandler(intensity, stop_time, channels)
