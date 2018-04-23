@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 
 
 def poisson(intensity: float):
-    inv_intensity = intensity
+    inv_intensity = 1.0 / intensity
 
     def inner():
         rand = random.random()
