@@ -10,14 +10,18 @@ from typing import Iterable
 from channel import Channel
 
 
-def find(predicate: Union[None, Callable[..., bool]], iterable: Iterable) -> Union[None, Any]:
+def find(
+    predicate: Union[None, Callable[..., bool]], iterable: Iterable
+) -> Union[None, Any]:
     for item in filter(predicate, iterable):
         return item
     return None
 
 
 class ChannelHandler:
-    def __init__(self, intensity: float, stop_time: float, channels: List[Channel]) -> None:
+    def __init__(
+        self, intensity: float, stop_time: float, channels: List[Channel]
+    ) -> None:
         rand = random.random()
 
         self._time = 0.0
@@ -61,6 +65,7 @@ class ChannelHandler:
         # Make the event happen right now!!!
         def forward(channel):
             return channel.forward(event.time)
+
         released = sum(map(forward, self._channels))
 
         if event.kind == EventKind.ENTER:

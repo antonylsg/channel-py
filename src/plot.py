@@ -43,7 +43,7 @@ for _ in range(trials):
 
 x = np.linspace(0.0, stop_time, bins)
 y = np.asarray(histogram) * inv_step / trials
-plt.plot(x, y, 'red')
-plt.xlabel('$t$')
-plt.ylabel(r'$\langle J \rangle$')
+plt.plot(x, y, "red")
+plt.xlabel("$t$")
+plt.ylabel(r"$\langle J \rangle$")
 plt.show()

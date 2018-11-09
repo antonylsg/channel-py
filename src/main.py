@@ -11,8 +11,6 @@ channels = [
     for _ in range(channel_count)
 ]
 handler = ChannelHandler(intensity, stop_time, channels)
-history = list(
-    filter(lambda time_count: time_count[1] is not 0, handler)
-)
+history = list(filter(lambda time_count: time_count[1] is not 0, handler))
 
 print(history)
