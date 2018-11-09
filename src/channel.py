@@ -1,6 +1,4 @@
 from typing import Union
-from typing import Callable
-from typing import Iterable
 
 
 class Channel:

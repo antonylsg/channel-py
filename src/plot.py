@@ -1,14 +1,9 @@
 import math
 import random
 import itertools
-from event import Event
-from event import EventKind
 from channel import Channel
 from channel_handler import ChannelHandler
-
 import numpy as np
-import matplotlib 
-matplotlib.use('TkAgg')
 from matplotlib import pyplot as plt
 
 

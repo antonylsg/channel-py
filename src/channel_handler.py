@@ -59,7 +59,8 @@ class ChannelHandler:
         self._forward(event.time)
 
         # Make the event happen right now!!!
-        forward = lambda channel: channel.forward(event.time)
+        def forward(channel):
+            return channel.forward(event.time)
         released = sum(map(forward, self._channels))
 
         if event.kind == EventKind.ENTER:

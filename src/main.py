@@ -1,6 +1,3 @@
-import itertools
-from event import Event
-from event import EventKind
 from channel import Channel
 from channel_handler import ChannelHandler
 
