@@ -1,13 +1,9 @@
 import math
 import random
-from event import Event
-from event import EventKind
-from typing import Any
-from typing import List
-from typing import Union
-from typing import Callable
-from typing import Iterable
+from typing import Any, Callable, Iterable, List, Union
+
 from channel import Channel
+from event import Event, EventKind
 
 
 def find(

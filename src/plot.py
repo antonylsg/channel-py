@@ -1,10 +1,12 @@
+import itertools
 import math
 import random
-import itertools
-from channel import Channel
-from channel_handler import ChannelHandler
+
 import numpy as np
 from matplotlib import pyplot as plt
+
+from channel import Channel
+from channel_handler import ChannelHandler
 
 
 def poisson(intensity: float):

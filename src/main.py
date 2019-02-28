@@ -1,7 +1,6 @@
 from channel import Channel
 from channel_handler import ChannelHandler
 
-
 intensity = 0.5
 channel_count = 2
 stop_time = 10.0
